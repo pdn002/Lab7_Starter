@@ -47,13 +47,12 @@ self.addEventListener('fetch', function (event) {
     //            Otherwise fetch the resource, add it to the cache, and return
     //            network response.
     // Go to the cache first
-    return cache.match(event.request).then(function (cachedResponse){
+    return cache.match(event.request).then(function(cachedResponse){
       // Return a cached response if we have one
       if (cachedResponse) {
         return cachedResponse;
       }
       // Otherwise, hit the network
-      console.log('here');
       return fetch(event.request).then(function(fetchedResponse){
         // Add the network response to the cache for later visits
         cache.put(event.request, fetchedResponse.clone());
