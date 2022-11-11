@@ -41,31 +41,26 @@ self.addEventListener('fetch', function (event) {
   /*******************************/
   // B7. TODO - Respond to the event by opening the cache using the name we gave
   //            above (CACHE_NAME)
-  if (event.request.destination === 'image') {
-    event.respondWith(caches.open(CACHE_NAME).then(function(cache) {
-    
-      // B8. TODO - If the request is in the cache, return with the cached version.
-      //            Otherwise fetch the resource, add it to the cache, and return
-      //            network response.
-      // Go to the cache first
-      return cache.match(event.request).then(function (cachedResponse){
-        // Return a cached response if we have one
-        if (cachedResponse) {
-          return cachedResponse;
-        }
-        // Otherwise, hit the network
-        console.error(event.request);
-        return fetch(event.request).then(function(fetchedResponse){
-          // Add the network response to the cache for later visits
-          cache.put(event.request, fetchedResponse.clone());
+  event.respondWith(caches.open(CACHE_NAME).then(function(cache) {
+  
+    // B8. TODO - If the request is in the cache, return with the cached version.
+    //            Otherwise fetch the resource, add it to the cache, and return
+    //            network response.
+    // Go to the cache first
+    return cache.match(event.request).then(function (cachedResponse){
+      // Return a cached response if we have one
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      // Otherwise, hit the network
+      console.log('here');
+      return fetch(event.request).then(function(fetchedResponse){
+        // Add the network response to the cache for later visits
+        cache.put(event.request, fetchedResponse.clone());
 
-          // Return the network response
-          return fetchedResponse;
-        });
+        // Return the network response
+        return fetchedResponse;
       });
-    }));
-  }
-  else{
-    return;
-  }
+    });
+  }));
 });
