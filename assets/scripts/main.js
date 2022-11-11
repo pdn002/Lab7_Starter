@@ -52,7 +52,7 @@ function initializeServiceWorker() {
 
   // B2. TODO - Listen for the 'load' event on the window object.
   window.addEventListener('load', async function(event){
-
+    
     // Steps B3-B6 will be *inside* the event listener's function created in B2
     // B3. TODO - Register './sw.js' as a service worker (The MDN article
     //            "Using Service Workers" will help you here)
@@ -67,9 +67,9 @@ function initializeServiceWorker() {
         console.log("service worker active");
       }
     }
+
     // B5. TODO - In the event that the service worker registration fails, console
     //            log that it has failed.
-    
     catch(err){
       console.error(`Registration failed with ${err}`);
     }
